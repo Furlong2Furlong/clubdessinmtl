@@ -1,11 +1,38 @@
-export default function Members() {
+import prisma from "../../../lib/prisma";
+
+export default async function Members() {
+  const users = await prisma.user.findMany();
+
   return (
     <div className="text-center">
       <h1>The CLUB</h1>
-      <li>Matt</li>
-      <li>Sarah</li>
-      <li>David</li>
-      <li>Linda</li>
+      <ol>
+        {users.map((user) => (
+          <li key={user.id} className="mb-2">
+            {user.name}
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
+
+// import prisma from '@/lib/prisma'
+
+// export default async function Home() {
+//   const users = await prisma.user.findMany();
+//   return (
+//     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16">
+//       <h1 className="text-4xl font-bold mb-8 font-[family-name:var(--font-geist-sans)] text-[#333333]">
+//         Superblog
+//       </h1>
+//       <ol className="list-decimal list-inside font-[family-name:var(--font-geist-sans)]">
+//         {users.map((user) => (
+//           <li key={user.id} className="mb-2">
+//             {user.name}
+//           </li>
+//         ))}
+//       </ol>
+//     </div>
+//   );
+// }
